@@ -4,12 +4,6 @@ from bs4 import BeautifulSoup
 import time
 import thread
 
-
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.107 Safari/537.36',
-    'X-Request-With' : 'XMLHttpRequest',
-}
-
 def download_imag(number):
     print('save numner: ' + str(number) + ' img')
     #set url
