@@ -26,13 +26,13 @@ def download_imag(number):
         message = 'aava'
     #if no error message, save img
     if(message[0] != 'J'):
-        img_flag+=1
         if(number<10000):
             number = "%05d" % int(number)
         filename = "img/" + str(number) + '_' + str(img_flag) + ".jpg"
         pic_out = file(filename,'w')
         pic_out.write(r.content)
         pic_out.close()
+        img_flag+=1
         time.sleep(1)
     else:
         print("ok")
