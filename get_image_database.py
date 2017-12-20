@@ -8,16 +8,28 @@ import thread
 def download_imag(number):
     global img_flag,succes_flag
     print('save numner: ' + str(number) + ' img, img_flag = ' + str(img_flag))
+
+    requests.packages.urllib3.disable_warnings()
+    URL = "https://www.db.yugioh-card.com/yugiohdb/card_search.action?request_locale=ja&ope=2&cid=" + str(number)
+    res = requests.get(str(URL), verify=False, cookies=None)
+    content = res.content
+    soup = BeautifulSoup(content.decode('utf-8','ignore'),"html.parser")
+    #--parse image enc--
+    tmp_soup = str(soup)
+    start = tmp_soup.find('&enc')
+    image_enc = tmp_soup[start:start+27]
+    #-------------------
+
     #set url
     referer_url = 'https://www.db.yugioh-card.com/yugiohdb/card_search.action?ope=2&cid=' + str(number) + '&request_locale=ja'
-    img_url = 'https://www.db.yugioh-card.com/yugiohdb/get_image.action?type=2&cid=' + str(number) + '&ciid='+str(img_flag)+'&request_locale=ja'
+    img_url = 'https://www.db.yugioh-card.com/yugiohdb/get_image.action?type=2&cid=' + str(number) + '&ciid='+str(img_flag)+'&request_locale=ja' + image_enc
     print(img_url)
     #set request
     s = requests.Session()
     s.headers.update({'referer': referer_url})
     r = s.get(img_url)
     #try search error message
-    soup = BeautifulSoup(r.content,"html.parser")
+    soup = BeautifulSoup(r.content,"lxml")
     noscript = soup.find_all('noscript')
     #set error message
     try:
@@ -49,7 +61,7 @@ if __name__ == "__main__":
     succes_flag = True
     img_flag = 1
     #number range 4000~13500
-    for i in range(4007,13500):
+    for i in range(6347,6349):
         download_all(i)
     
 
