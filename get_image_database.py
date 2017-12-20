@@ -60,8 +60,8 @@ def download_all(number):
 if __name__ == "__main__":
     succes_flag = True
     img_flag = 1
-    #number range 4000~13500
-    for i in range(6347,6349):
+    #number range 4007~14000
+    for i in range(4007,14000):
         download_all(i)
     
 
